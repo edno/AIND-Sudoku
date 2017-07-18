@@ -26,27 +26,27 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
 
-        # Find all instances of naked twins
-        twins_list = []
-        for box in boxes:
-            # Check if the box contain exactly 2 possible values (naked twins)
-            if len(values[box]) == 2:
-                # Find all peer with same values
-                # (here we assume that values are always sorted)
-                for peer in peers[box]:
-                    if values[peer] == values[box]:
-                        twins_list.append([box,peer])
+    # Find all instances of naked twins
+    twins_list = []
+    for box in boxes:
+        # Check if the box contain exactly 2 possible values (naked twins)
+        if len(values[box]) == 2:
+            # Find all peer with same values
+            # (here we assume that values are always sorted)
+            for peer in peers[box]:
+                if values[peer] == values[box]:
+                    twins_list.append([box,peer])
 
-        # Eliminate the naked twins as possibilities for their peers
-        if twins_list:
-            for twins in twins_list:
-                # intersect list of twins' peers for common units
-                twins_peers = set(peers[twins[0]]).intersection(set(peers[twins[1]]))
-                # remove twins from peers
-                for peer in twins_peers:
-                    for v in values[twins[0]]:
-                        values = assign_value(values, peer, values[peer].replace(v,''))
-        return values
+    # Eliminate the naked twins as possibilities for their peers
+    if twins_list:
+        for twins in twins_list:
+            # intersect list of twins' peers for common units
+            twins_peers = set(peers[twins[0]]).intersection(set(peers[twins[1]]))
+            # remove twins from peers
+            for peer in twins_peers:
+                for v in values[twins[0]]:
+                    values = assign_value(values, peer, values[peer].replace(v,''))
+    return values
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
