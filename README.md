@@ -3,17 +3,21 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: The naked twins strategy enforces constraint on the board in order to reduce more effectively the search space. In this strategy, we search for pair of boxes with the same unit(s) sharing the same 2 possible values. Because those are the only values possible for those boxes, then those values can be excluded from the boxes that are peers of both twin boxes.
+The method naked_twins() (line 20) search for twin boxes, identifies shared peers as the intersection of the list of peers of each twin. Then it remove from the peers possible values the 2 values belonging to the twins.
+Note - It would be interesting to evaluate how the sequence of strategies impacts the performance.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: The diagonal sudoku problem is an extension of the standard sudoku, i.e. both diagonals are additional units, hence they extends set of peers for boxes that are part of diagonals.
+Therefore solving a diagonal sudoku does not require to change existing algorithm, we simply add a new set of units (line 167 and line 169). The diagonal peers will create new constraints while running solving strategies (method reduce_puzzle() line 108-126).
+Note - It is likely that the sequence of units in the list of units (line 169) affects the performance of the code, since boxes belonging to diagonals will have more constraints.
 
 ### Install
 
 This project requires **Python 3**.
 
-We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project. 
+We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project.
 Please try using the environment we provided in the Anaconda lesson of the Nanodegree.
 
 ##### Optional: Pygame
@@ -41,4 +45,3 @@ The setup is simple.  If you have not installed the client tool already, then yo
 To submit your code to the project assistant, run `udacity submit` from within the top-level directory of this project.  You will be prompted for a username and password.  If you login using google or facebook, visit [this link](https://project-assistant.udacity.com/auth_tokens/jwt_login) for alternate login instructions.
 
 This process will create a zipfile in your top-level directory named sudoku-<id>.zip.  This is the file that you should submit to the Udacity reviews system.
-
